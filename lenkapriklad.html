@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="movieForm">
+        <div>
+            <input type="text" id="movieNameInput" placeholder="Nazov filmu" />
+        </div>
+        <div>
+            <input type="text" id="movieYearInput" placeholder="Rok filmu">
+        </div>
+        <div>
+            <input type="text" id="movieActorInput" placeholder="Herec">
+        </div>
+
+        <button onclick="addMovie()">Pridat film</button>
+        <button onclick="removeMovie()">Vymaz posledny film</button>
+        <button onclick="removeAllMovies()">Vymaz vsetky filmy</button>
+    </form>
+
+    <div id="movieList">
+
+    </div>
+
+    <script>
+        const movieNameInput = document.getElementById("movieNameInput")
+        const movieYearInput = document.getElementById("movieYearInput")
+        const movieActorInput = document.getElementById("movieActorInput")
+
+        let allMovies = [];
+
+        function addMovie() {
+            event.preventDefault();
+
+            const title = movieNameInput.value;
+            const year = movieYearInput.value;
+            const actor = movieActorInput.value;
+
+            allMovies.push({title, year, actor});
+
+            movieNameInput.value = "";
+            movieYearInput.value = "";
+            movieActorInput.value = "";
+
+            listOfMovies();
+        }
+
+        function removeMovie() {
+            event.preventDefault();
+
+            allMovies.pop();
+
+            listOfMovies();
+        }
+
+        function removeAllMovies() {
+            event.preventDefault();
+            
+            allMovies = [];
+
+            listOfMovies();
+        }
+
+        function listOfMovies() {
+            console.log("******* Aktuálny zoznam filmov *******");
+
+            for (let i=0; i<allMovies.length; i++) {
+                // Tuto si defunej premenu ktora sa pouzije pri vypise v konzole
+                // ako poradove cislo filmu (pre lepsi prehlad)
+                // Number() mozes ale nemusis pouzit staci ti aj iba "i + 1"
+                // ja ju pouzivam len ako istotu
+                const orderNumber = Number(i + 1);
+
+                console.log(orderNumber + ". Nazov filmu: " + allMovies[i]['title']);
+                console.log("   Rok filmu: " + allMovies[i].year);
+                console.log("   Herec filmu: " + allMovies[i].actor);
+            }
+        }
+    </script>
+</body>
+</html>
